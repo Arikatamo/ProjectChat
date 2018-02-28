@@ -12,6 +12,7 @@
         <AssociationConnector Association="ChatModel.FK_tblContactList_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="ChatModel.FK_tblSender_tblMessages" ManuallyRouted="false" />
         <AssociationConnector Association="ChatModel.FK_tblSender_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ChatModel.FK_tblSender_tblMessages1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

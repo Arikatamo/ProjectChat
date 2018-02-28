@@ -20,5 +20,6 @@ namespace Chat_Library
     
         public virtual tblMessage tblMessage { get; set; }
         public virtual tblUser tblUser { get; set; }
+        public virtual tblMessage tblMessage1 { get; set; }
     }
 }
