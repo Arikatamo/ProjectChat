@@ -20,6 +20,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SendDate" Type="date" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblSender">
           <Key>
@@ -53,7 +54,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSender_tblMessages">
+        <Association Name="FK_tblSender_tblMessages1">
           <End Role="tblMessages" Type="Self.tblMessages" Multiplicity="1" />
           <End Role="tblSender" Type="Self.tblSender" Multiplicity="*" />
           <ReferentialConstraint>
@@ -61,7 +62,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="tblSender">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="MessageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -86,7 +87,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblContactList" EntitySet="tblContactList" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSender_tblMessages" Association="Self.FK_tblSender_tblMessages">
+          <AssociationSet Name="FK_tblSender_tblMessages1" Association="Self.FK_tblSender_tblMessages1">
             <End Role="tblMessages" EntitySet="tblMessages" />
             <End Role="tblSender" EntitySet="tblSender" />
           </AssociationSet>
@@ -116,6 +117,8 @@
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="tblSenders" Relationship="Self.FK_tblSender_tblMessages" FromRole="tblMessages" ToRole="tblSender" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblSenders1" Relationship="ChatModel.FK_tblSender_tblMessages1" FromRole="tblMessage" ToRole="tblSender" />
         </EntityType>
         <EntityType Name="tblSender">
           <Key>
@@ -128,6 +131,7 @@
           <Property Name="MessageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblMessage" Relationship="Self.FK_tblSender_tblMessages" FromRole="tblSender" ToRole="tblMessages" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblSender_tblUser" FromRole="tblSender" ToRole="tblUser" />
+          <NavigationProperty Name="tblMessage1" Relationship="ChatModel.FK_tblSender_tblMessages1" FromRole="tblSender" ToRole="tblMessage" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -194,7 +198,23 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblSender" EntitySet="tblSenders" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblSender_tblMessages1" Association="ChatModel.FK_tblSender_tblMessages1">
+            <End Role="tblMessage" EntitySet="tblMessages" />
+            <End Role="tblSender" EntitySet="tblSenders" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_tblSender_tblMessages1">
+          <End Type="ChatModel.tblMessage" Role="tblMessage" Multiplicity="1" />
+          <End Type="ChatModel.tblSender" Role="tblSender" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMessage">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblSender">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -212,6 +232,7 @@
           <EntitySetMapping Name="tblMessages">
             <EntityTypeMapping TypeName="ChatModel.tblMessage">
               <MappingFragment StoreEntitySet="tblMessages">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />

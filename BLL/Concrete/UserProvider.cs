@@ -38,6 +38,17 @@ namespace BLL.Concrete
             _iUserContactList.SaveChanges();
         }
 
+        public void AddMsg(string text, int ID)
+        {
+            tblMessage msg = new tblMessage
+            {
+                Message = text,
+                UserID = ID,
+                SendDate = DateTime.Now
+            };
+            _iMsgRepository.AddMessage(msg);
+            _iMsgRepository.SaveChanges();
+        }
 
         public tblUser AddUser(string name, string phone, string image)
         {
@@ -83,9 +94,16 @@ namespace BLL.Concrete
 
             
         }
+
+        public IList<tblMessage> GetAllMsg()
+        {
+            return _iMsgRepository.GetAllMsg().ToList();
+        }
+
         public IList<tblUser> GetAllUsers()
         {
-            return _iUserRepository.GetAll();
+            return _iUserRepository.GetAll().ToList();
+
         }
     }
 }
