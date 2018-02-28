@@ -19,6 +19,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="btnCon" Content="Connect" Click="Button_Click" Margin="100,5,5,5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <TextBox x:Name="tbName" Grid.Column="1" TextWrapping="Wrap" Text="Nickname" Margin="5,5,100,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <CheckBox x:Name="History" Content="LoadHistory" Grid.Column="1" HorizontalAlignment="Left" Margin="164,5,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid Grid.Row="1"/>
         <Grid Grid.Row="2">

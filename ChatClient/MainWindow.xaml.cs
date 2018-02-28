@@ -112,23 +112,26 @@ namespace WpfApp1
                 client = new ServiceChatClient(new System.ServiceModel.InstanceContext(this));
                 id = client.Connect(tbName.Text);
 
-                var allMsg = provider.GetAllMsg();
-
-                foreach (var item in allMsg)
+                if (History.IsChecked == true)
                 {
-                    try
+                    var allMsg = provider.GetAllMsg();
+
+                    foreach (var item in allMsg)
                     {
-                        var a = provider.GetAllUsers().FirstOrDefault(x => x.id == item.UserID);
+                        try
+                        {
+                            var a = provider.GetAllUsers().FirstOrDefault(x => x.id == item.UserID);
+                            MsgCallback(a.Name, item.Message, TypeMsg.Message);
+                        }
+                        catch (Exception)
+                        {
 
-                        MsgCallback(a.Name, item.Message, TypeMsg.Message);
+
+                        }
+
                     }
-                    catch (Exception)
-                    {
-
-
-                    }
-
                 }
+
 
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
