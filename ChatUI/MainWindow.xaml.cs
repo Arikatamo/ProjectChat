@@ -31,6 +31,7 @@ namespace ChatUI
             try
             {
                 user.AddUser(FieldName.Text, FieldPhone.Text, FieldImage.Text);
+                //er
 
             }
             catch (Exception ex)
