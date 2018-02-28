@@ -12,6 +12,7 @@ using BLL.Concrete;
 namespace ChatService
 {
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service" в коде и файле конфигурации.
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Service : IServiceChat
     {
         List<ServiceUser> users = new List<ServiceUser>();
@@ -20,7 +21,7 @@ namespace ChatService
         {
             var user = new UserProvider().GetAllUsers().FirstOrDefault(m => m.Name == name);
 
-            if (users.FirstOrDefault(m => m.user.Name == name) != null)
+            if (users.FirstOrDefault(m => m.user.Name == name) != null || user == null)
             {
                 SendMsg("", "Пользователь с таким ником уже есть в чате!", TypeMsg.Error, 0);
                 return 0;
@@ -49,7 +50,7 @@ namespace ChatService
         }
         public void SendMsg(string username, string msg, TypeMsg typeMsg, int userId)
         {
-            provider.a
+            provider.AddMsg(msg, userId);
             foreach (var el in users)
             {
                 el.operationContext.GetCallbackChannel<ICallback>().MsgCallback(username, msg, typeMsg);

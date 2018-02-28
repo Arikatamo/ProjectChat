@@ -9,48 +9,36 @@
 //------------------------------------------------------------------------------
 
 namespace ChatClient.Service {
-    using System.Runtime.Serialization;
     
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceUser.TypeMsg", Namespace="http://schemas.datacontract.org/2004/07/ChatService")]
-    public enum ServiceUserTypeMsg : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Connect = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Disconnect = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Message = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Info = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Warning = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Error = 6,
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.IServiceChat", CallbackContract=typeof(ChatClient.Service.IServiceChatCallback))]
     public interface IServiceChat {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
-        void SendMsg(string username, string msg, ChatClient.Service.ServiceUserTypeMsg typeMsg, int userId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Connect", ReplyAction="http://tempuri.org/IServiceChat/ConnectResponse")]
+        int Connect(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Connect", ReplyAction="http://tempuri.org/IServiceChat/ConnectResponse")]
+        System.Threading.Tasks.Task<int> ConnectAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Disconnect", ReplyAction="http://tempuri.org/IServiceChat/DisconnectResponse")]
+        void Disconnect(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Disconnect", ReplyAction="http://tempuri.org/IServiceChat/DisconnectResponse")]
+        System.Threading.Tasks.Task DisconnectAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
-        System.Threading.Tasks.Task SendMsgAsync(string username, string msg, ChatClient.Service.ServiceUserTypeMsg typeMsg, int userId);
+        void SendMsg(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
+        System.Threading.Tasks.Task SendMsgAsync(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IServiceChatCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/MsgCallback")]
-        void MsgCallback(string username, string msg, ChatClient.Service.ServiceUserTypeMsg typeMsg);
+        void MsgCallback(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -81,11 +69,27 @@ namespace ChatClient.Service {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void SendMsg(string username, string msg, ChatClient.Service.ServiceUserTypeMsg typeMsg, int userId) {
+        public int Connect(string name) {
+            return base.Channel.Connect(name);
+        }
+        
+        public System.Threading.Tasks.Task<int> ConnectAsync(string name) {
+            return base.Channel.ConnectAsync(name);
+        }
+        
+        public void Disconnect(int id) {
+            base.Channel.Disconnect(id);
+        }
+        
+        public System.Threading.Tasks.Task DisconnectAsync(int id) {
+            return base.Channel.DisconnectAsync(id);
+        }
+        
+        public void SendMsg(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId) {
             base.Channel.SendMsg(username, msg, typeMsg, userId);
         }
         
-        public System.Threading.Tasks.Task SendMsgAsync(string username, string msg, ChatClient.Service.ServiceUserTypeMsg typeMsg, int userId) {
+        public System.Threading.Tasks.Task SendMsgAsync(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId) {
             return base.Channel.SendMsgAsync(username, msg, typeMsg, userId);
         }
     }

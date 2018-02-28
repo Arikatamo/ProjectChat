@@ -27,7 +27,7 @@ namespace WpfApp1
             InitializeComponent();
         }
     
-        public void MsgCallback(string username, string msg, ServiceUserTypeMsg typeMsg)
+        public void MsgCallback(string username, string msg, TypeMsg typeMsg)
         {
             StackPanel stk = new StackPanel();
             stk.Orientation = System.Windows.Controls.Orientation.Horizontal;
@@ -44,38 +44,38 @@ namespace WpfApp1
 
             switch (typeMsg)
             {
-                case ServiceUserTypeMsg.Connect:
+                case TypeMsg.Connect:
                     {
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
 
                         break;
                     }
-                case ServiceUserTypeMsg.Disconnect:
+                case TypeMsg.Disconnect:
                     {
                         txtBlk.Foreground = Brushes.Red;
                         txtBlk2.Foreground = Brushes.Red;
                         break;
                     }
-                case ServiceUserTypeMsg.Error:
+                case TypeMsg.Error:
                     {
                         txtBlk.Foreground = Brushes.Red;
                         txtBlk2.Foreground = Brushes.Red;
                         break;
                     }
-                case ServiceUserTypeMsg.Info:
+                case TypeMsg.Info:
                     {
                         txtBlk.Foreground = Brushes.LightBlue;
                         txtBlk2.Foreground = Brushes.LightBlue;
                         break;
                     }
-                case ServiceUserTypeMsg.Message:
+                case TypeMsg.Message:
                     {
                         txtBlk.Foreground = Brushes.Black;
                         txtBlk2.Foreground = Brushes.Black;
                         break;
                     }
-                case ServiceUserTypeMsg.Warning:
+                case TypeMsg.Warning:
                     {
                         txtBlk.Foreground = Brushes.Yellow;
                         txtBlk2.Foreground = Brushes.Yellow;
@@ -95,7 +95,7 @@ namespace WpfApp1
         {
             if (isConnect)
             {
-                //client.Disconnect(id);
+                client.Disconnect(id);
                 client = null;
                 tbName.IsEnabled = true;
                 btnCon.Content = "Connect";
@@ -108,7 +108,7 @@ namespace WpfApp1
             if (!isConnect)
             {
                 client = new ServiceChatClient(new System.ServiceModel.InstanceContext(this));
-                //id = client.Connect(tbName.Text);
+                id = client.Connect(tbName.Text);
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
                 isConnect = true;
@@ -139,7 +139,7 @@ namespace WpfApp1
         {
             if (!string.IsNullOrEmpty(msg.Text))
             {
-                client.SendMsg(tbName.Text, msg.Text, ServiceUserTypeMsg.Message, id);
+                client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
                 msg.Text = "";
             }
         }
@@ -150,12 +150,10 @@ namespace WpfApp1
             {
                 if (!string.IsNullOrEmpty(msg.Text))
                 {
-                    client.SendMsg(tbName.Text, msg.Text, ServiceUserTypeMsg.Message, id);
+                    client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
                     msg.Text = "";
                 }
             }
         }
-
-    
     }
 }
