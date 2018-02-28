@@ -16,7 +16,7 @@ namespace ChatService
     public class Service : IServiceChat
     {
         List<ServiceUser> users = new List<ServiceUser>();
-      private readonly   UserProvider provider = new UserProvider();
+        private readonly UserProvider provider = new UserProvider();
         public int Connect(string name)
         {
             var user = new UserProvider().GetAllUsers().FirstOrDefault(m => m.Name == name);
@@ -48,6 +48,17 @@ namespace ChatService
                 SendMsg(user.user.Name, "покинул чат!", TypeMsg.Disconnect, 0);
             }
         }
+
+        public IList<string> GetAllOnlineUsers()
+        {
+            return users.ConvertAll(new Converter<ServiceUser, string>(ServiceUserToString));
+        }
+
+        public string ServiceUserToString(ServiceUser user)
+        {
+            return user.user.Name;
+        }
+
         public void SendMsg(string username, string msg, TypeMsg typeMsg, int userId)
         {
             foreach (var el in users)

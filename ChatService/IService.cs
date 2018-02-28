@@ -8,7 +8,7 @@ using static ChatService.ServiceUser;
 
 namespace ChatService
 {
-     [ServiceContract(CallbackContract = typeof(ICallback))]
+    [ServiceContract(CallbackContract = typeof(ICallback))]
     public interface IServiceChat
     {
         [OperationContract]
@@ -16,6 +16,9 @@ namespace ChatService
 
         [OperationContract]
         void Disconnect(int id);
+
+        [OperationContract]
+        IList<string> GetAllOnlineUsers();
 
         [OperationContract(IsOneWay = true)]
         void SendMsg(string username, string msg, TypeMsg typeMsg, int userId);

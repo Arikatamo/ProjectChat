@@ -1,4 +1,5 @@
 ﻿using BLL.Concrete;
+using ChatClient;
 using ChatClient.Service;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,12 @@ namespace WpfApp1
         private readonly UserProvider provider = new UserProvider();
         bool isConnect = false;
         ServiceChatClient client;
+        List<OnlineUserViewModel> listOnlineUsers;
         int id;
         public MainWindow()
         {
             InitializeComponent();
+            listOnlineUsers = new List<OnlineUserViewModel>();
         }
     
         public void MsgCallback(string username, string msg, TypeMsg typeMsg)
@@ -51,12 +54,31 @@ namespace WpfApp1
                     {
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
+
+                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = username });
+                        listUsers.ItemsSource = listOnlineUsers;
+                        listUsers.Items.Refresh();
+
                         break;
                     }
                 case TypeMsg.Disconnect:
                     {
                         txtBlk.Foreground = Brushes.Red;
                         txtBlk2.Foreground = Brushes.Red;
+
+                        int indexDel = -1;
+                        for(int i = 0; i<listOnlineUsers.Count;i++)
+                        {
+                            if(listOnlineUsers[i].UserName == username)
+                            {
+                                indexDel = i;
+                                break;
+                            }
+                        }
+                        listOnlineUsers.RemoveAt(indexDel);
+                        listUsers.ItemsSource = listOnlineUsers;
+                        listUsers.Items.Refresh();
+
                         break;
                     }
                 case TypeMsg.Error:
@@ -102,6 +124,12 @@ namespace WpfApp1
                 tbName.IsEnabled = true;
                 btnCon.Content = "Connect";
                 isConnect = false;
+
+                //Список онлайн юзерів
+                listOnlineUsers.Clear();
+                listUsers.ItemsSource = listOnlineUsers;
+                listUsers.Items.Refresh();
+
             }
         }
 
@@ -131,6 +159,14 @@ namespace WpfApp1
 
                     }
                 }
+
+                //Cписок онлайн юзерів
+                foreach (var el in client.GetAllOnlineUsers())
+                {
+                    listOnlineUsers.Add(new OnlineUserViewModel() { UserName = el });
+                }
+                listUsers.ItemsSource = listOnlineUsers;
+                listUsers.Items.Refresh();
 
 
                 tbName.IsEnabled = false;

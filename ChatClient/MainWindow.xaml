@@ -8,9 +8,8 @@
         Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48*"/>
-            <RowDefinition Height="204*"/>
-            <RowDefinition Height="67*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -21,16 +20,41 @@
             <TextBox x:Name="tbName" Grid.Column="1" TextWrapping="Wrap" Text="Nickname" Margin="5,5,100,5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <CheckBox x:Name="History" Content="LoadHistory" Grid.Column="1" HorizontalAlignment="Left" Margin="164,5,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid Grid.Row="1"/>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="131*"/>
+                <ColumnDefinition Width="386*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Send" Grid.Column="1" Margin="10" Click="Button_Click_1"/>
-            <TextBox x:Name="msg" TextWrapping="Wrap" Text="" Margin="10" KeyDown="msg_KeyDown"/>
+            <Grid>
+                <ListBox Name="listUsers" Margin="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <TextBlock Text="{Binding UserName}" FontWeight="Bold"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="13*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Send" Grid.Column="1" Margin="10" Click="Button_Click_1"/>
+                    <TextBox x:Name="msg" TextWrapping="Wrap" Text="" Margin="5" KeyDown="msg_KeyDown"/>
+                </Grid>
+                <Grid>
+                    <ListBox x:Name="chat" Margin="5" Grid.Row="1"/>
+                </Grid>
+            </Grid>
         </Grid>
-        <ListBox x:Name="chat" Margin="5" Grid.Row="1"/>
 
     </Grid>
 </Window>

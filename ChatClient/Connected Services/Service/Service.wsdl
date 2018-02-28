@@ -33,7 +33,8 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ChatService" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ChatService" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServiceChat_Connect_InputMessage">
@@ -47,6 +48,12 @@
   </wsdl:message>
   <wsdl:message name="IServiceChat_Disconnect_OutputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceChat_GetAllOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOnlineUsers" />
+  </wsdl:message>
+  <wsdl:message name="IServiceChat_GetAllOnlineUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOnlineUsersResponse" />
   </wsdl:message>
   <wsdl:message name="IServiceChat_SendMsg_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMsg" />
@@ -62,6 +69,10 @@
     <wsdl:operation name="Disconnect">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/Disconnect" message="tns:IServiceChat_Disconnect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/DisconnectResponse" message="tns:IServiceChat_Disconnect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/GetAllOnlineUsers" message="tns:IServiceChat_GetAllOnlineUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/GetAllOnlineUsersResponse" message="tns:IServiceChat_GetAllOnlineUsers_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SendMsg">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/SendMsg" message="tns:IServiceChat_SendMsg_InputMessage" />
@@ -84,6 +95,15 @@
     </wsdl:operation>
     <wsdl:operation name="Disconnect">
       <soap12:operation soapAction="http://tempuri.org/IServiceChat/Disconnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOnlineUsers">
+      <soap12:operation soapAction="http://tempuri.org/IServiceChat/GetAllOnlineUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
