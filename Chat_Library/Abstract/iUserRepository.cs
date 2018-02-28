@@ -13,7 +13,6 @@ namespace Chat_Library.Abstract
         tblUser AddUser(tblUser user);
         IList<tblUser> GetAll();
         void Remove(tblUser user);
-        
         int SaveChanges();
     }
 }

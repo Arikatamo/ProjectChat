@@ -9,7 +9,7 @@ namespace Chat_Library.Concrete
     public class ContactsRepository : iUserContactList
     {
         private readonly Context context;
-        ContactsRepository(Context context)
+        public ContactsRepository(Context context)
         {
             this.context = context;
         }
@@ -20,7 +20,7 @@ namespace Chat_Library.Concrete
         }
 
         public IList<tblContactList> GetAllContacts()
-        {
+        { 
             return context.tblContactLists.ToList();
         }
 

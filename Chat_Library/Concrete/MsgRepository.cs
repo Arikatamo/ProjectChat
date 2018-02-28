@@ -4,33 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chat_Library.Abstract;
+using System.Data.Entity;
 namespace Chat_Library.Concrete
 {
     public class MsgRepository : iMsgRepository
     {
-        private readonly Context context;
-        MsgRepository(Context context)
+       private readonly Context _context;
+
+        public MsgRepository(Context context)
         {
-            this.context = context;
+            this._context = context;
         }
         public tblMessage AddMessage(tblMessage Msg)
         {
-          return context.tblMessages.Add(Msg);
+          return _context.tblMessages.Add(Msg);
         }
 
         public IList<tblMessage> GetAllMsg()
         {
-           return context.tblMessages.ToList();
+           return _context.tblMessages.ToList();
         }
 
         public void RemoveMsg(tblMessage Msg)
         {
-            context.tblMessages.Remove(Msg);
+            _context.tblMessages.Remove(Msg);
         }
 
         public int SaveChanges()
         {
-           return context.SaveChanges();
+           return _context.SaveChanges();
         }
     }
 }

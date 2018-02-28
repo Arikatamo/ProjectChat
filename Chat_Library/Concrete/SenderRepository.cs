@@ -9,7 +9,7 @@ namespace Chat_Library.Concrete
     public class SenderRepository : iSenderRepository
     {
         private readonly Context context;
-        SenderRepository(Context context)
+     public   SenderRepository(Context context)
         {
             this.context = context;
         }
