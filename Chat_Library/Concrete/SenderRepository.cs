@@ -9,13 +9,13 @@ namespace Chat_Library.Concrete
     public class SenderRepository : iSenderRepository
     {
         private readonly Context context;
-     public   SenderRepository(Context context)
+        public SenderRepository(Context context)
         {
             this.context = context;
         }
         public tblSender AddSender(tblSender sender)
         {
-           return context.tblSenders.Add(sender);
+            return context.tblSenders.Add(sender);
         }
 
         public IList<tblSender> GetAllSenders()
