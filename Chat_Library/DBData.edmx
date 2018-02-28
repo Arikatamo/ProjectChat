@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblContactList">
           <Key>
             <PropertyRef Name="MyId" />
@@ -38,9 +38,10 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateCreate" Type="date" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Image" Type="nvarchar" MaxLength="128" />
         </EntityType>
-        <Association Name="FK_tblContactList_tblUser">
+        <Association Name="FK_tblContactList_tblUser1">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
           <End Role="tblContactList" Type="Self.tblContactList" Multiplicity="*" />
           <ReferentialConstraint>
@@ -64,7 +65,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSender_tblUser">
+        <Association Name="FK_tblSender_tblUser1">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
           <End Role="tblSender" Type="Self.tblSender" Multiplicity="*" />
           <ReferentialConstraint>
@@ -81,7 +82,7 @@
           <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSender" EntityType="Self.tblSender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tblContactList_tblUser" Association="Self.FK_tblContactList_tblUser">
+          <AssociationSet Name="FK_tblContactList_tblUser1" Association="Self.FK_tblContactList_tblUser1">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblContactList" EntitySet="tblContactList" />
           </AssociationSet>
@@ -89,13 +90,12 @@
             <End Role="tblMessages" EntitySet="tblMessages" />
             <End Role="tblSender" EntitySet="tblSender" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSender_tblUser" Association="Self.FK_tblSender_tblUser">
+          <AssociationSet Name="FK_tblSender_tblUser1" Association="Self.FK_tblSender_tblUser1">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSender" EntitySet="tblSender" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -139,6 +139,7 @@
           <Property Name="Image" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblContactLists" Relationship="Self.FK_tblContactList_tblUser" FromRole="tblUser" ToRole="tblContactList" />
           <NavigationProperty Name="tblSenders" Relationship="Self.FK_tblSender_tblUser" FromRole="tblUser" ToRole="tblSender" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_tblContactList_tblUser">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
@@ -229,6 +230,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="ChatModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />

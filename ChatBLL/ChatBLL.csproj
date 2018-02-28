@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66DA1CE9-FE11-4985-A15B-BC1500584880}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChatBLL</RootNamespace>
+    <AssemblyName>ChatBLL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bridge, Version=16.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bridge.Core.16.8.1\lib\net40\Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.Core.1.4.6556\lib\net40\Retyped.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.dom, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.dom.2.3.6589\lib\net40\Retyped.dom.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.ent, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.ent.2.2.6556\lib\net40\Retyped.ent.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.es2015.collection, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.es2015.collection.2.3.6556\lib\net40\Retyped.es2015.collection.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.es2015.core, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.es2015.core.2.3.6556\lib\net40\Retyped.es2015.core.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.es2015.iterable, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.es2015.iterable.2.3.6556\lib\net40\Retyped.es2015.iterable.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.es2015.symbol, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.es2015.symbol.2.3.6556\lib\net40\Retyped.es2015.symbol.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.es5, Version=2.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.es5.2.3.6556\lib\net40\Retyped.es5.dll</HintPath>
+    </Reference>
+    <Reference Include="Retyped.node, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Retyped.node.7.0.6556\lib\net40\Retyped.node.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\iUserProvider.cs" />
+    <Compile Include="Concrete\UserProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chat_Library\Chat_Library.csproj">
+      <Project>{b8e5061e-39cf-440f-91b5-00ed873c8713}</Project>
+      <Name>Chat_Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

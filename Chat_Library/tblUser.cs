@@ -25,6 +25,7 @@ namespace Chat_Library
         public string Name { get; set; }
         public System.DateTime DateCreate { get; set; }
         public string Image { get; set; }
+        public string Phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblContactList> tblContactLists { get; set; }
