@@ -12,6 +12,6 @@ namespace BLL.Abstract
         IList<tblUser> GetAllContacts(tblUser user);
         void AddContacts(tblUser user, tblUser UserToAdd);
         IList<tblUser> GetAllUsers();
-
+        /////
     }
 }
