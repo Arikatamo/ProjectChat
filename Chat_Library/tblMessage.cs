@@ -17,7 +17,6 @@ namespace Chat_Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblMessage()
         {
-            this.tblSenders = new HashSet<tblSender>();
             this.tblSenders1 = new HashSet<tblSender>();
         }
     
@@ -26,8 +25,6 @@ namespace Chat_Library
         public System.DateTime SendDate { get; set; }
         public int UserID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblSender> tblSenders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSender> tblSenders1 { get; set; }
     }

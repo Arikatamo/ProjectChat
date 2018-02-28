@@ -50,11 +50,11 @@ namespace ChatService
         }
         public void SendMsg(string username, string msg, TypeMsg typeMsg, int userId)
         {
-            provider.AddMsg(msg, userId);
             foreach (var el in users)
             {
-                el.operationContext.GetCallbackChannel<ICallback>().MsgCallback(username, msg, typeMsg);
+              el.operationContext.GetCallbackChannel<ICallback>().MsgCallback(username, msg, typeMsg);
             }
         }
+
     }
 }

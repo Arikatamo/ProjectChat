@@ -24,6 +24,5 @@ namespace ChatService
     public interface ICallback
     {
         [OperationContract(IsOneWay = true)]
-        void MsgCallback(string username, string msg, TypeMsg typeMsg);
-    }
+        void MsgCallback(string username, string msg, TypeMsg typeMsg);    }
 }

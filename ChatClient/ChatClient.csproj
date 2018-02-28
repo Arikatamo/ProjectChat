@@ -122,9 +122,17 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{03a16b2d-077b-430a-a02f-ee9c0eefbff2}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChatService\ChatService.csproj">
       <Project>{46cc31b1-1e00-4da6-9a61-f73949275f50}</Project>
       <Name>ChatService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chat_Library\Chat_Library.csproj">
+      <Project>{B8E5061E-39CF-440F-91B5-00ED873C8713}</Project>
+      <Name>Chat_Library</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

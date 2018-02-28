@@ -18,7 +18,6 @@ namespace Chat_Library
         public int ToId { get; set; }
         public int MessageId { get; set; }
     
-        public virtual tblMessage tblMessage { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblMessage tblMessage1 { get; set; }
     }

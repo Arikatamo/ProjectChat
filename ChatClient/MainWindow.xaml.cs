@@ -1,4 +1,5 @@
-﻿using ChatClient.Service;
+﻿using BLL.Concrete;
+using ChatClient.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace WpfApp1
 {
     public partial class MainWindow : Window, IServiceChatCallback
     {
+        private readonly UserProvider provider = new UserProvider();
         bool isConnect = false;
         ServiceChatClient client;
         int id;
@@ -29,12 +31,13 @@ namespace WpfApp1
     
         public void MsgCallback(string username, string msg, TypeMsg typeMsg)
         {
+
             StackPanel stk = new StackPanel();
             stk.Orientation = System.Windows.Controls.Orientation.Horizontal;
             stk.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
             TextBlock txtBlk = new TextBlock();
-            txtBlk.Text = username;
+            txtBlk.Text = username + " : ";
             txtBlk.FontWeight = System.Windows.FontWeights.Bold;
             txtBlk.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 
@@ -48,7 +51,6 @@ namespace WpfApp1
                     {
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
-
                         break;
                     }
                 case TypeMsg.Disconnect:
@@ -109,6 +111,25 @@ namespace WpfApp1
             {
                 client = new ServiceChatClient(new System.ServiceModel.InstanceContext(this));
                 id = client.Connect(tbName.Text);
+
+                var allMsg = provider.GetAllMsg();
+
+                foreach (var item in allMsg)
+                {
+                    try
+                    {
+                        var a = provider.GetAllUsers().FirstOrDefault(x => x.id == item.UserID);
+
+                        MsgCallback(a.Name, item.Message, TypeMsg.Message);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+                }
+
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
                 isConnect = true;
@@ -139,6 +160,7 @@ namespace WpfApp1
         {
             if (!string.IsNullOrEmpty(msg.Text))
             {
+                provider.AddMsg(msg.Text, id);
                 client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
                 msg.Text = "";
             }
@@ -150,6 +172,7 @@ namespace WpfApp1
             {
                 if (!string.IsNullOrEmpty(msg.Text))
                 {
+                    provider.AddMsg(msg.Text, id);
                     client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
                     msg.Text = "";
                 }

@@ -38,7 +38,7 @@ namespace BLL.Concrete
             _iUserContactList.SaveChanges();
         }
 
-        public void AddMsg(string text, int ID)
+        public tblMessage AddMsg(string text, int ID)
         {
             tblMessage msg = new tblMessage
             {
@@ -48,6 +48,7 @@ namespace BLL.Concrete
             };
             _iMsgRepository.AddMessage(msg);
             _iMsgRepository.SaveChanges();
+            return msg;
         }
 
         public tblUser AddUser(string name, string phone, string image)
