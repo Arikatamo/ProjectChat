@@ -31,7 +31,7 @@ namespace WpfApp1
             InitializeComponent();
             listOnlineUsers = new List<OnlineUserViewModel>();
         }
-    
+
         public void MsgCallback(string username, string msg, TypeMsg typeMsg)
         {
 
@@ -54,30 +54,26 @@ namespace WpfApp1
                     {
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
-
-                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = username });
+                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = tbName.Text, Id = id });
                         listUsers.ItemsSource = listOnlineUsers;
                         listUsers.Items.Refresh();
-
                         break;
                     }
                 case TypeMsg.Disconnect:
                     {
                         txtBlk.Foreground = Brushes.Red;
                         txtBlk2.Foreground = Brushes.Red;
-
-                        int indexDel = -1;
-                        for(int i = 0; i<listOnlineUsers.Count;i++)
+                        try
                         {
-                            if(listOnlineUsers[i].UserName == username)
-                            {
-                                indexDel = i;
-                                break;
-                            }
+                            listOnlineUsers.RemoveAt(listOnlineUsers.FindIndex(x => x.Id == id));
+                            listUsers.ItemsSource = listOnlineUsers;
+                            listUsers.Items.Refresh();
                         }
-                        listOnlineUsers.RemoveAt(indexDel);
-                        listUsers.ItemsSource = listOnlineUsers;
-                        listUsers.Items.Refresh();
+                        catch (Exception)
+                        {
+
+                        }
+
 
                         break;
                     }
@@ -117,20 +113,29 @@ namespace WpfApp1
 
         void disconnect()
         {
-            if (isConnect)
+            try
             {
-                client.Disconnect(id);
-                client = null;
-                tbName.IsEnabled = true;
-                btnCon.Content = "Connect";
-                isConnect = false;
+                if (isConnect)
+                {
+                    client.Disconnect(id);
+                    client = null;
+                    tbName.IsEnabled = true;
+                    btnCon.Content = "Connect";
+                    isConnect = false;
 
-                //Список онлайн юзерів
-                listOnlineUsers.Clear();
-                listUsers.ItemsSource = listOnlineUsers;
-                listUsers.Items.Refresh();
+                    //Список онлайн юзерів
+                    listOnlineUsers.Clear();
+                    listUsers.ItemsSource = listOnlineUsers;
+                    listUsers.Items.Refresh();
+
+                }
+            }
+            catch (Exception)
+            {
+
 
             }
+
         }
 
         void connect()
@@ -160,14 +165,13 @@ namespace WpfApp1
                     }
                 }
 
-                //Cписок онлайн юзерів
+                ////Cписок онлайн юзерів
                 foreach (var el in client.GetAllOnlineUsers())
                 {
-                    listOnlineUsers.Add(new OnlineUserViewModel() { UserName = el });
+                    listOnlineUsers.Add(new OnlineUserViewModel { UserName = el });
                 }
                 listUsers.ItemsSource = listOnlineUsers;
                 listUsers.Items.Refresh();
-
 
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
