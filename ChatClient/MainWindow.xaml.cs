@@ -26,6 +26,7 @@ namespace WpfApp1
         ServiceChatClient client;
         List<OnlineUserViewModel> listOnlineUsers;
         int id;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,7 +55,8 @@ namespace WpfApp1
                     {
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
-                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = tbName.Text, Id = id });
+
+                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = username, Id = id });
                         listUsers.ItemsSource = listOnlineUsers;
                         listUsers.Items.Refresh();
                         break;
