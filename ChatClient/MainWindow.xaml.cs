@@ -131,8 +131,6 @@ namespace WpfApp1
 
                     }
                 }
-
-
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
                 isConnect = true;
