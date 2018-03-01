@@ -82,6 +82,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OnlineUserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +107,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Service\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Service\item3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Service\Service.wsdl" />

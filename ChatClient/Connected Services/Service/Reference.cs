@@ -27,6 +27,12 @@ namespace ChatClient.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Disconnect", ReplyAction="http://tempuri.org/IServiceChat/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/GetAllOnlineUsers", ReplyAction="http://tempuri.org/IServiceChat/GetAllOnlineUsersResponse")]
+        string[] GetAllOnlineUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/GetAllOnlineUsers", ReplyAction="http://tempuri.org/IServiceChat/GetAllOnlineUsersResponse")]
+        System.Threading.Tasks.Task<string[]> GetAllOnlineUsersAsync();
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
         void SendMsg(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId);
         
@@ -83,6 +89,14 @@ namespace ChatClient.Service {
         
         public System.Threading.Tasks.Task DisconnectAsync(int id) {
             return base.Channel.DisconnectAsync(id);
+        }
+        
+        public string[] GetAllOnlineUsers() {
+            return base.Channel.GetAllOnlineUsers();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetAllOnlineUsersAsync() {
+            return base.Channel.GetAllOnlineUsersAsync();
         }
         
         public void SendMsg(string username, string msg, ChatService.ServiceUser.TypeMsg typeMsg, int userId) {
