@@ -29,5 +29,6 @@ namespace Chat_Library
         public virtual DbSet<tblMessage> tblMessages { get; set; }
         public virtual DbSet<tblSender> tblSenders { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblChat> tblChats { get; set; }
     }
 }

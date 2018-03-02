@@ -12,28 +12,18 @@ namespace Chat_Library
     using System;
     using System.Collections.Generic;
     
-    public partial class tblUser
+    public partial class tblChat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblUser()
+        public tblChat()
         {
-            this.tblContactLists = new HashSet<tblContactList>();
-            this.tblSenders = new HashSet<tblSender>();
-            this.tblChats = new HashSet<tblChat>();
+            this.tblUsers = new HashSet<tblUser>();
         }
     
         public int id { get; set; }
         public string Name { get; set; }
-        public System.DateTime DateCreate { get; set; }
-        public string Image { get; set; }
-        public string Phone { get; set; }
-        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblContactList> tblContactLists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblSender> tblSenders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblChat> tblChats { get; set; }
+        public virtual ICollection<tblUser> tblUsers { get; set; }
     }
 }

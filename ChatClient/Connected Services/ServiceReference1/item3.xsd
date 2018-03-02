@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Chat_Library" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Chat_Library" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOftblChat">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblChat" nillable="true" type="tns:tblChat" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblChat" nillable="true" type="tns:ArrayOftblChat" />
+  <xs:complexType name="tblChat">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="tblUsers" nillable="true" type="tns:ArrayOftblUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblChat" nillable="true" type="tns:tblChat" />
+  <xs:complexType name="ArrayOftblUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblUser" nillable="true" type="tns:tblUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblUser" nillable="true" type="tns:ArrayOftblUser" />
+  <xs:complexType name="tblUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCreate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Image" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="tblChats" nillable="true" type="tns:ArrayOftblChat" />
+      <xs:element minOccurs="0" name="tblContactLists" nillable="true" type="tns:ArrayOftblContactList" />
+      <xs:element minOccurs="0" name="tblSenders" nillable="true" type="tns:ArrayOftblSender" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblUser" nillable="true" type="tns:tblUser" />
+  <xs:complexType name="ArrayOftblContactList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblContactList" nillable="true" type="tns:tblContactList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblContactList" nillable="true" type="tns:ArrayOftblContactList" />
+  <xs:complexType name="tblContactList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MyId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="tblUser" nillable="true" type="tns:tblUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblContactList" nillable="true" type="tns:tblContactList" />
+  <xs:complexType name="ArrayOftblSender">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="tblSender" nillable="true" type="tns:tblSender" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOftblSender" nillable="true" type="tns:ArrayOftblSender" />
+  <xs:complexType name="tblSender">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MessageId" type="xs:int" />
+      <xs:element minOccurs="0" name="ToId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="tblMessage1" nillable="true" type="tns:tblMessage" />
+      <xs:element minOccurs="0" name="tblUser" nillable="true" type="tns:tblUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblSender" nillable="true" type="tns:tblSender" />
+  <xs:complexType name="tblMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SendDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserID" type="xs:int" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="tblSenders1" nillable="true" type="tns:ArrayOftblSender" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="tblMessage" nillable="true" type="tns:tblMessage" />
+</xs:schema>

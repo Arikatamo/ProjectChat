@@ -1,6 +1,7 @@
 ﻿using BLL.Concrete;
 using ChatClient;
-using ChatClient.Service;
+using ChatClient.ServiceReference1;
+using ChatService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,24 @@ namespace WpfApp1
     {
         private readonly UserProvider provider = new UserProvider();
         bool isConnect = false;
-        ServiceChatClient client;
-        List<OnlineUserViewModel> listOnlineUsers;
-        int id;
+        private ServiceChatClient client;
+       private List<UserChat> listOnlineUsers;
+        private UserChat UserInLog = new UserChat();
 
         public MainWindow()
         {
             InitializeComponent();
-            listOnlineUsers = new List<OnlineUserViewModel>();
+            listOnlineUsers = new List<UserChat>();
         }
 
-        public void MsgCallback(string username, string msg, TypeMsg typeMsg)
+        public void MsgCallback(UserChat username, string msg, TypeMsg typeMsg)
         {
 
             StackPanel stk = new StackPanel();
             stk.Orientation = System.Windows.Controls.Orientation.Horizontal;
             stk.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-
             TextBlock txtBlk = new TextBlock();
-            txtBlk.Text = username + " : ";
+            txtBlk.Text = username.Name + " : ";
             txtBlk.FontWeight = System.Windows.FontWeights.Bold;
             txtBlk.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 
@@ -56,8 +56,9 @@ namespace WpfApp1
                         txtBlk.Foreground = Brushes.Green;
                         txtBlk2.Foreground = Brushes.Green;
 
-                        listOnlineUsers.Add(new OnlineUserViewModel() { UserName = username, Id = id });
+                        listOnlineUsers.Add(username);
                         listUsers.ItemsSource = listOnlineUsers;
+                        listUsers.SelectedValuePath = "Name";
                         listUsers.Items.Refresh();
                         break;
                     }
@@ -67,7 +68,7 @@ namespace WpfApp1
                         txtBlk2.Foreground = Brushes.Red;
                         try
                         {
-                            listOnlineUsers.RemoveAt(listOnlineUsers.FindIndex(x => x.Id == id));
+                            listOnlineUsers.RemoveAt(listOnlineUsers.FindIndex(x => x == UserInLog));
                             listUsers.ItemsSource = listOnlineUsers;
                             listUsers.Items.Refresh();
                         }
@@ -112,30 +113,30 @@ namespace WpfApp1
             chat.Items.Add(stk);
             chat.ScrollIntoView(chat.Items[chat.Items.Count - 1]);
         }
-
-        void disconnect()
+        
+        void  disconnect()
         {
             try
             {
                 if (isConnect)
                 {
-                    client.Disconnect(id);
+                    client.Disconnect(UserInLog.id);
                     client = null;
                     tbName.IsEnabled = true;
                     btnCon.Content = "Connect";
                     isConnect = false;
-
+                    chat.Items.Clear();
                     //Список онлайн юзерів
-                    listOnlineUsers.Clear();
-                    listUsers.ItemsSource = listOnlineUsers;
+                     
+                    listUsers.ItemsSource = null;
                     listUsers.Items.Refresh();
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -144,8 +145,10 @@ namespace WpfApp1
         {
             if (!isConnect)
             {
+
                 client = new ServiceChatClient(new System.ServiceModel.InstanceContext(this));
-                id = client.Connect(tbName.Text);
+             
+                UserInLog = client.Connect(provider.GetAllUsers().FirstOrDefault(x => x.Name == tbName.Text));
 
                 if (History.IsChecked == true)
                 {
@@ -156,7 +159,10 @@ namespace WpfApp1
                         try
                         {
                             var a = provider.GetAllUsers().FirstOrDefault(x => x.id == item.UserID);
-                            MsgCallback(a.Name, item.Message, TypeMsg.Message);
+                            MsgCallback(a, item.Message, TypeMsg.Message);
+                            //chat.ItemsSource = provider.GetAllMsg();
+                            //chat.SelectedValuePath = "Message";
+                            //chat.SelectedValue = "Message";
                         }
                         catch (Exception)
                         {
@@ -166,15 +172,13 @@ namespace WpfApp1
 
                     }
                 }
-
+                // MessageBox.Show(client.GetAllOnlineUsers().Length.ToString());
                 ////Cписок онлайн юзерів
-                foreach (var el in client.GetAllOnlineUsers())
-                {
-                    listOnlineUsers.Add(new OnlineUserViewModel { UserName = el });
-                }
+
+                listOnlineUsers.AddRange(client.GetAllOnlineUsers());
+     
                 listUsers.ItemsSource = listOnlineUsers;
                 listUsers.Items.Refresh();
-
                 tbName.IsEnabled = false;
                 btnCon.Content = "Disconnect";
                 isConnect = true;
@@ -205,8 +209,8 @@ namespace WpfApp1
         {
             if (!string.IsNullOrEmpty(msg.Text))
             {
-                provider.AddMsg(msg.Text, id);
-                client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
+                provider.AddMsg(msg.Text, UserInLog.id);
+                client.SendMsg(UserInLog, msg.Text, TypeMsg.Message, UserInLog.id);
                 msg.Text = "";
             }
         }
@@ -217,8 +221,8 @@ namespace WpfApp1
             {
                 if (!string.IsNullOrEmpty(msg.Text))
                 {
-                    provider.AddMsg(msg.Text, id);
-                    client.SendMsg(tbName.Text, msg.Text, TypeMsg.Message, id);
+                    provider.AddMsg(msg.Text, UserInLog.id);
+                    client.SendMsg(UserInLog, msg.Text, TypeMsg.Message, UserInLog.id);
                     msg.Text = "";
                 }
             }

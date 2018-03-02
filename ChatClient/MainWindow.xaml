@@ -30,7 +30,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,2">
-                                <TextBlock Text="{Binding UserName}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

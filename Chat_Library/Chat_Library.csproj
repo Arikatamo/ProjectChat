@@ -73,6 +73,9 @@
       <DependentUpon>DBData.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tblChat.cs">
+      <DependentUpon>DBData.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblContactList.cs">
       <DependentUpon>DBData.tt</DependentUpon>
     </Compile>

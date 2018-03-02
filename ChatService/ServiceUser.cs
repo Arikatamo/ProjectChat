@@ -12,7 +12,7 @@ namespace ChatService
     {
         public enum TypeMsg { Connect = 1, Disconnect, Message, Info, Warning, Error };
 
-        public tblUser user { get; set; }
+        public UserChat user { get; set; }
         public OperationContext operationContext { get; set; }
     }
 }

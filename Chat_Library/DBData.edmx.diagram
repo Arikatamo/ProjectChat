@@ -12,6 +12,8 @@
         <AssociationConnector Association="ChatModel.FK_tblContactList_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="ChatModel.FK_tblSender_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="ChatModel.FK_tblSender_tblMessages1" />
+        <EntityTypeShape EntityType="ChatModel.tblChat" Width="1.5" PointX="0.75" PointY="1.25" />
+        <AssociationConnector Association="ChatModel.tblUserChats" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -17,49 +17,50 @@ namespace ChatService
     {
         List<ServiceUser> users = new List<ServiceUser>();
         private readonly UserProvider provider = new UserProvider();
-        public int Connect(string name)
+        public UserChat Connect(UserChat name)
         {
-            var user = new UserProvider().GetAllUsers().FirstOrDefault(m => m.Name == name);
+            var user = new UserProvider().GetAllUsers().FirstOrDefault(m => m.id == name.id);
 
-            if (users.FirstOrDefault(m => m.user.Name == name) != null || user == null)
+            if (users.FirstOrDefault(m => m.user == name) != null || user == null)
             {
-                SendMsg("", "Пользователь с таким ником уже есть в чате!", TypeMsg.Error, 0);
-                return 0;
+                SendMsg(name, "Пользователь с таким ником уже есть в чате!", TypeMsg.Error, 0);
+                return new UserChat() ;
             }
 
             ServiceUser newUser = new ServiceUser()
             {
-                user = user,
+                user = name,
                 operationContext = OperationContext.Current
             };
 
             SendMsg(name, "подключился к чату!", TypeMsg.Connect, 0);
             users.Add(newUser);
-
-            return user.id;
+            return newUser.user;
         }
 
         public void Disconnect(int id)
         {
+           
             var user = users.FirstOrDefault(m => m.user.id == id);
             if (user != null)
             {
                 users.Remove(user);
-                SendMsg(user.user.Name, "покинул чат!", TypeMsg.Disconnect, 0);
+                SendMsg(user.user, "покинул чат!", TypeMsg.Disconnect, 0);
+
             }
         }
 
-        public IList<string> GetAllOnlineUsers()
+        public IList<UserChat> GetAllOnlineUsers()
         {
-            return users.ConvertAll(new Converter<ServiceUser, string>(ServiceUserToString));
+            return users.ConvertAll(new Converter<ServiceUser, UserChat>(ServiceUserToString));
         }
 
-        public string ServiceUserToString(ServiceUser user)
+        public UserChat ServiceUserToString(ServiceUser user)
         {
-            return user.user.Name;
+            return user.user;
         }
 
-        public void SendMsg(string username, string msg, TypeMsg typeMsg, int userId)
+        public void SendMsg(UserChat username, string msg, TypeMsg typeMsg, int userId)
         {
             foreach (var el in users)
             {

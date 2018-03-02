@@ -13,20 +13,20 @@ namespace ChatService
     public interface IServiceChat
     {
         [OperationContract]
-        int Connect(string name);
+        UserChat Connect(UserChat name);
 
         [OperationContract]
         void Disconnect(int id);
 
         [OperationContract]
-        IList<string> GetAllOnlineUsers();
+        IList<UserChat> GetAllOnlineUsers();
 
         [OperationContract(IsOneWay = true)]
-        void SendMsg(string username, string msg, TypeMsg typeMsg, int userId);
+        void SendMsg(UserChat username, string msg, TypeMsg typeMsg, int userId);
     }
 
     public interface ICallback
     {
         [OperationContract(IsOneWay = true)]
-        void MsgCallback(string username, string msg, TypeMsg typeMsg);    }
+        void MsgCallback(UserChat username, string msg, TypeMsg typeMsg);    }
 }
