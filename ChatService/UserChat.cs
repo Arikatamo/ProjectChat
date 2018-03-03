@@ -13,8 +13,7 @@ namespace ChatService
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserChat()
         {
-            this.tblContactLists = new HashSet<tblContactList>();
-            this.tblSenders = new HashSet<tblSender>();
+
             this.tblChats = new HashSet<tblChat>();
         }
 
@@ -25,11 +24,6 @@ namespace ChatService
         public string Phone { get; set; }
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblContactList> tblContactLists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<tblSender> tblSenders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblChat> tblChats { get; set; }
 

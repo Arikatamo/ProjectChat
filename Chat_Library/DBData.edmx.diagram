@@ -5,15 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="409035a1b34b4759aef31fdac1b1bc95" Name="Diagram1">
-        <EntityTypeShape EntityType="ChatModel.tblContactList" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChatModel.tblMessage" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChatModel.tblSender" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChatModel.tblMessage" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ChatModel.tblUser" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <AssociationConnector Association="ChatModel.FK_tblContactList_tblUser" ManuallyRouted="false" />
-        <AssociationConnector Association="ChatModel.FK_tblSender_tblUser" ManuallyRouted="false" />
-        <AssociationConnector Association="ChatModel.FK_tblSender_tblMessages1" />
         <EntityTypeShape EntityType="ChatModel.tblChat" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="ChatModel.tblUserChats" />
+        <AssociationConnector Association="ChatModel.FK_tblMessages_tblChats" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

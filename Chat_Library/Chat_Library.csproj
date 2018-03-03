@@ -50,12 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\iMsgRepository.cs" />
-    <Compile Include="Abstract\iSenderRepository.cs" />
-    <Compile Include="Abstract\iUserContactList.cs" />
     <Compile Include="Abstract\iUserRepository.cs" />
-    <Compile Include="Concrete\ContactsRepository.cs" />
     <Compile Include="Concrete\MsgRepository.cs" />
-    <Compile Include="Concrete\SenderRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="DBData.Context.cs">
       <AutoGen>True</AutoGen>
@@ -76,13 +72,7 @@
     <Compile Include="tblChat.cs">
       <DependentUpon>DBData.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblContactList.cs">
-      <DependentUpon>DBData.tt</DependentUpon>
-    </Compile>
     <Compile Include="tblMessage.cs">
-      <DependentUpon>DBData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblSender.cs">
       <DependentUpon>DBData.tt</DependentUpon>
     </Compile>
     <Compile Include="tblUser.cs">

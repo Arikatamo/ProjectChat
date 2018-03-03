@@ -14,29 +14,18 @@ namespace BLL.Concrete
     public class UserProvider: iUserProvider
     {
         private readonly iUserRepository _iUserRepository;
-        private readonly iUserContactList _iUserContactList;
         private readonly iMsgRepository _iMsgRepository;
-        private readonly iSenderRepository _iSenderRepository;
+
 
        public UserProvider()
         {
             Context context = new Context();
             _iMsgRepository = new MsgRepository(context);
-            _iSenderRepository = new SenderRepository(context);
-            _iUserContactList = new ContactsRepository(context);
+
             _iUserRepository = new UserRepository(context);
         }
 
-        public void AddContacts(tblUser user, tblUser userToAdd)
-        {
-            tblContactList contact = new tblContactList
-            {
-                MyId = user.id,
-                UserId = userToAdd.id
-            };
-            _iUserContactList.AddContact(contact);
-            _iUserContactList.SaveChanges();
-        }
+
 
         public tblMessage AddMsg(string text, int ID)
         {
@@ -75,26 +64,6 @@ namespace BLL.Concrete
 
         }
 
-        public IList<tblUser> GetAllContacts(tblUser user)
-        {
-           var Contacts = _iUserContactList.GetAllContacts().Where(x => x.MyId == user.id);
-            IList<tblUser> users = null;
-            try
-            {
-                foreach (var item in Contacts)
-                {
-                    users.Add(_iUserRepository.GetAll().FirstOrDefault(x => x.id == item.UserId));
-                }
-                return users;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-            
-        }
 
         public IList<tblMessage> GetAllMsg()
         {

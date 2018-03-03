@@ -9,8 +9,6 @@ namespace BLL.Abstract
     public interface iUserProvider
     {
         tblUser AddUser(string name, string phone, string image);
-        IList<tblUser> GetAllContacts(tblUser user);
-        void AddContacts(tblUser user, tblUser UserToAdd);
         IList<tblUser> GetAllUsers();
         tblMessage AddMsg(string msg, int userID);
         IList<tblMessage> GetAllMsg();

@@ -25,9 +25,7 @@ namespace Chat_Library
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblContactList> tblContactLists { get; set; }
         public virtual DbSet<tblMessage> tblMessages { get; set; }
-        public virtual DbSet<tblSender> tblSenders { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblChat> tblChats { get; set; }
     }

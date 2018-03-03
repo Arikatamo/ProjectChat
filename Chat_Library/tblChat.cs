@@ -18,6 +18,7 @@ namespace Chat_Library
         public tblChat()
         {
             this.tblUsers = new HashSet<tblUser>();
+            this.tblMessages = new HashSet<tblMessage>();
         }
     
         public int id { get; set; }
@@ -25,5 +26,7 @@ namespace Chat_Library
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUser> tblUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblMessage> tblMessages { get; set; }
     }
 }
