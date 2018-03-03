@@ -19,7 +19,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -33,8 +33,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
                 </StackPanel>
 
             </Grid>
-            <Grid Grid.Row="2" Background="#A5FFFDFD">
+            <Grid x:Name = "LoginForm" Grid.Row="2" Background="#A5FFFDFD" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -57,10 +57,10 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Sign In" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="23" Foreground="#FF0281D8"></TextBlock>
                 <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" CornerRadius="10" Margin="5" Background="White">
-                    <TextBox BorderThickness="0" Margin="5" Text="Login" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                    <TextBox x:Name="Logins"  BorderThickness="0" Margin="5" Text="Login" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" CornerRadius="10" Margin="5" Background="White">
-                    <TextBox BorderThickness="0" Margin="5" Text="Password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus2"></TextBox>
+                    <TextBox x:Name="Password" BorderThickness="0" Margin="5" Text="Password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
                 </Border>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
@@ -68,10 +68,49 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Style="{StaticResource StyleButton}" Foreground="Black" Content="Login" FontSize="20" FontWeight="Medium"/>
-                    <Button Grid.Column="1" Style="{StaticResource StyleButton}" Foreground="Black" Content="Forgot Password?" FontSize="20" FontWeight="Medium"/>
+                    <Button Grid.Column="1" Style="{StaticResource StyleButton}" Foreground="Black" Content="Forgot Password?" FontSize="20" FontWeight="Medium" Click="Button_Click"/>
                 </Grid>
                 <Button Grid.Row="4" Style="{StaticResource StyleButton}" Foreground="Black" Content="Create an account" FontSize="20" FontWeight="Medium"/>
             </Grid>
+            <Grid x:Name = "ForgotForm" Grid.Row="2" Background="#A5FFFDFD" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Remind" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="23" Foreground="#FF0281D8"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" CornerRadius="10" Margin="5" Background="White">
+                    <TextBox x:Name="Email" BorderThickness="0" Margin="5" Text="Email" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                </Border>
+                <Grid Grid.Row="2">
+                    <Button Style="{StaticResource StyleButton}" Foreground="Black" Content="Send password reset email" FontSize="20" FontWeight="Medium" Click="Button_Click_2"/>
+                </Grid>
+                <Border  x:Name="NewPasswordB" BorderBrush="Black" BorderThickness="1" Grid.Row="4" CornerRadius="10" Margin="5" Background="White" Visibility="Hidden">
+                    <TextBox x:Name="NewPassword"  BorderThickness="0" Margin="5" Text="New password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                </Border>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="SecreteCodeB" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="5" Background="White"  Visibility="Hidden">
+                        <TextBox x:Name="SecreteCode" BorderThickness="0" Margin="5" Text="Secrete code" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="20" Foreground="Gray" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                    </Border>
+                    <Button x:Name="ButtonVerify" Grid.Column="1" Style="{StaticResource StyleButton}" Foreground="Black" Content="Verify" FontSize="20" FontWeight="Medium" Visibility="Hidden" Click="ButtonVerify_Click"/>
+                </Grid>
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource StyleButton}" Foreground="Black" Content="Back" FontSize="20" FontWeight="Medium" Click="Button_Click_1" HorizontalAlignment="Left" Width="191"/>
+                    <Button x:Name="SaveChng" Grid.Column="1" Style="{StaticResource StyleButton}" Foreground="Black" Content="Save Changes" FontSize="20" FontWeight="Medium" Visibility="Hidden" Click="Button_Click_1"/>
+                </Grid>
+            </Grid>
+
         </Grid>
 
     </Grid>

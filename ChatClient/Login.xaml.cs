@@ -16,21 +16,45 @@ namespace ChatClient
 {
     public partial class Login : Window
     {
-        bool changes;
         public Login()
         {
             InitializeComponent();
-            changes = true;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (changes)
+            bool ver = true;
+            TextBox lb = sender as TextBox;
+            switch (lb.Text)
             {
-                TextBox lb = sender as TextBox;
+                case "Login":
+                    {
+                        break;
+                    }
+                case "Password":
+                    {
+                        break;
+                    }
+                case "Email":
+                    {
+                        break;
+                    }
+                case "New password":
+                    {
+                        break;
+                    }
+                case "Secrete code":
+                    {
+                        break;
+                    }
+                default:
+                    ver = false;
+                    break;
+            }
+            if (ver)
+            {
                 lb.Text = "";
                 lb.Foreground = new SolidColorBrush(Colors.Black);
-                changes = false;
             }
         }
 
@@ -39,19 +63,36 @@ namespace ChatClient
             TextBox lb = sender as TextBox;
             if (string.IsNullOrEmpty(lb.Text))
             {
-                lb.Text = "Login";
-                lb.Foreground = new SolidColorBrush(Colors.Gray);
-                changes = true;
-            }
-        }
+                switch (lb.Name)
+                {
+                    case "Logins":
+                        {
+                            lb.Text = "Login";
+                            break;
+                        }
+                    case "Password":
+                        {
+                            lb.Text = "Password";
+                            break;
+                        }
+                    case "Email":
+                        {
+                            lb.Text = "Email";
+                            break;
+                        }
+                    case "NewPassword":
+                        {
+                            lb.Text = "New password";
+                            break;
+                        }
+                    case "SecreteCode":
+                        {
+                            lb.Text = "Secrete code";
+                            break;
+                        }
 
-        private void TextBox_LostFocus2(object sender, RoutedEventArgs e)
-        {
-            TextBox lb = sender as TextBox;
-            if (string.IsNullOrEmpty(lb.Text))
-            {
-                lb.Text = "Password";
-                changes = true;
+                }
+
                 lb.Foreground = new SolidColorBrush(Colors.Gray);
             }
         }
@@ -67,6 +108,48 @@ namespace ChatClient
             Border brd = sender as Border;
             var bc = new BrushConverter();
             brd.Background = (Brush)bc.ConvertFrom("#D2DCDCDC");
+        }
+
+        //ForgotPasswordButton
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Hidden;
+            ForgotForm.Visibility = Visibility.Visible;
+            Logins.Text = "Login";
+            Logins.Foreground = new SolidColorBrush(Colors.Gray);
+            Password.Text = "Password";
+            Password.Foreground = new SolidColorBrush(Colors.Gray);
+        }
+
+        //Back && SaveChng
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Visible;
+            ForgotForm.Visibility = Visibility.Hidden;
+            SecreteCodeB.Visibility = Visibility.Hidden;
+            ButtonVerify.Visibility = Visibility.Hidden;
+            NewPasswordB.Visibility = Visibility.Hidden;
+            SaveChng.Visibility = Visibility.Hidden;
+
+            Email.Text = "Email";
+            Email.Foreground = new SolidColorBrush(Colors.Gray);
+            SecreteCode.Text = "Secret code";
+            SecreteCode.Foreground = new SolidColorBrush(Colors.Gray);
+            NewPassword.Text = "New password";
+            NewPassword.Foreground = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            SecreteCodeB.Visibility = Visibility.Visible;
+            ButtonVerify.Visibility = Visibility.Visible;
+        }
+
+        //Verify
+        private void ButtonVerify_Click(object sender, RoutedEventArgs e)
+        {
+            NewPasswordB.Visibility = Visibility.Visible;
+            SaveChng.Visibility = Visibility.Visible;
         }
     }
 }
