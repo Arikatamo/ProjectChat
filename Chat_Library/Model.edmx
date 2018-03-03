@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblChats">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblMessages">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SendDate" Type="date" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ChatID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreate" Type="date" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="128" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblUserChats">
+          <Key>
+            <PropertyRef Name="ChatID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ChatID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblMessages_tblChats">
+          <End Role="tblChats" Type="Self.tblChats" Multiplicity="1" />
+          <End Role="tblMessages" Type="Self.tblMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChats">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblMessages">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserChats_tblChats">
+          <End Role="tblChats" Type="Self.tblChats" Multiplicity="1" />
+          <End Role="tblUserChats" Type="Self.tblUserChats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChats">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUserChats">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUserChats_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblUserChats" Type="Self.tblUserChats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUserChats">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChatModelStoreContainer">
+          <EntitySet Name="tblChats" EntityType="Self.tblChats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserChats" EntityType="Self.tblUserChats" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblMessages_tblChats" Association="Self.FK_tblMessages_tblChats">
+            <End Role="tblChats" EntitySet="tblChats" />
+            <End Role="tblMessages" EntitySet="tblMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserChats_tblChats" Association="Self.FK_tblUserChats_tblChats">
+            <End Role="tblChats" EntitySet="tblChats" />
+            <End Role="tblUserChats" EntitySet="tblUserChats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUserChats_tblUser" Association="Self.FK_tblUserChats_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblUserChats" EntitySet="tblUserChats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblChat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblMessages" Relationship="Self.FK_tblMessages_tblChats" FromRole="tblChats" ToRole="tblMessages" />
+          <NavigationProperty Name="tblUsers" Relationship="Self.tblUserChats" FromRole="tblChats" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ChatID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblChat" Relationship="Self.FK_tblMessages_tblChats" FromRole="tblMessages" ToRole="tblChats" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblChats" Relationship="Self.tblUserChats" FromRole="tblUser" ToRole="tblChats" />
+        </EntityType>
+        <Association Name="FK_tblMessages_tblChats">
+          <End Role="tblChats" Type="Self.tblChat" Multiplicity="1" />
+          <End Role="tblMessages" Type="Self.tblMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChats">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblMessages">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblUserChats">
+          <End Role="tblChats" Type="Self.tblChat" Multiplicity="*" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EFContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblChats" EntityType="Self.tblChat" />
+          <EntitySet Name="tblMessages" EntityType="Self.tblMessage" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_tblMessages_tblChats" Association="Self.FK_tblMessages_tblChats">
+            <End Role="tblChats" EntitySet="tblChats" />
+            <End Role="tblMessages" EntitySet="tblMessages" />
+          </AssociationSet>
+          <AssociationSet Name="tblUserChats" Association="Self.tblUserChats">
+            <End Role="tblChats" EntitySet="tblChats" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChatModelStoreContainer" CdmEntityContainer="EFContext">
+          <EntitySetMapping Name="tblChats">
+            <EntityTypeMapping TypeName="ChatModel.tblChat">
+              <MappingFragment StoreEntitySet="tblChats">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessages">
+            <EntityTypeMapping TypeName="ChatModel.tblMessage">
+              <MappingFragment StoreEntitySet="tblMessages">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="ChatModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblUserChats" TypeName="ChatModel.tblUserChats" StoreEntitySet="tblUserChats">
+            <EndProperty Name="tblChats">
+              <ScalarProperty Name="id" ColumnName="ChatID" />
+            </EndProperty>
+            <EndProperty Name="tblUser">
+              <ScalarProperty Name="id" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

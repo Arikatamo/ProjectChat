@@ -26,7 +26,6 @@ namespace ChatService
                 SendMsg(name, "Пользователь с таким ником уже есть в чате!", TypeMsg.Error, 0);
                 return new UserChat() ;
             }
-
             ServiceUser newUser = new ServiceUser()
             {
                 user = name,
@@ -44,7 +43,7 @@ namespace ChatService
             var user = users.FirstOrDefault(m => m.user.id == id);
             if (user != null)
             {
-                users.Remove(user);
+                users.RemoveAt(users.FindIndex(m => m.user.id == id));
                 SendMsg(user.user, "покинул чат!", TypeMsg.Disconnect, 0);
 
             }

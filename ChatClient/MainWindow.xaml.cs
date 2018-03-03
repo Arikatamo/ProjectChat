@@ -127,7 +127,6 @@ namespace WpfApp1
                     isConnect = false;
                     chat.Items.Clear();
                     //Список онлайн юзерів
-                     
                     listUsers.ItemsSource = null;
                     listUsers.Items.Refresh();
 

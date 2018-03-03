@@ -42,9 +42,8 @@ namespace ChatService
                 id = v.id,
                 Phone = v.Phone,
                 DateCreate = v.DateCreate,
-                tblChats = v.tblChats,
-                tblContactLists = v.tblContactLists,
-                tblSenders = v.tblSenders
+                tblChats = v.tblChats
+
             };
         }
     }
